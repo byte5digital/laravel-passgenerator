@@ -6,7 +6,7 @@
  * Time: 9:36
  */
 
-namespace Thenextweb\Definitions\Dictionary;
+namespace Byte5Digital\Definitions\Dictionary;
 
 use Illuminate\Support\Fluent;
 use InvalidArgumentException;

@@ -6,7 +6,7 @@
  * Time: 22:06
  */
 
-namespace Thenextweb\Definitions;
+namespace Byte5Digital\Definitions;
 
 class Coupon extends AbstractDefinition
 {

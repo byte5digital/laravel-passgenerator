@@ -6,7 +6,7 @@
  * Time: 21:30
  */
 
-namespace Thenextweb\Definitions;
+namespace Byte5Digital\Definitions;
 
 interface DefinitionInterface
 {

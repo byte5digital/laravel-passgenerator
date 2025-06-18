@@ -6,7 +6,7 @@
  * Time: 10:31
  */
 
-namespace Thenextweb\Definitions;
+namespace Byte5Digital\Definitions;
 
 class Generic extends AbstractDefinition
 {

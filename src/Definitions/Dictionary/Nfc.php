@@ -6,7 +6,7 @@
  * Time: 23:29
  */
 
-namespace Thenextweb\Definitions\Dictionary;
+namespace Byte5Digital\Definitions\Dictionary;
 
 use Illuminate\Support\Fluent;
 

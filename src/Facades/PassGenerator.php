@@ -1,6 +1,6 @@
 <?php
 
-namespace Thenextweb\Facades;
+namespace Byte5Digital\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

@@ -1,17 +1,17 @@
 <?php
 
-namespace Thenextweb\Definitions;
+namespace Byte5Digital\Definitions;
 
 use Carbon\Carbon;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Fluent;
-use Thenextweb\Definitions\Dictionary\Barcode;
-use Thenextweb\Definitions\Dictionary\Beacon;
-use Thenextweb\Definitions\Dictionary\Field;
-use Thenextweb\Definitions\Dictionary\Location;
-use Thenextweb\Definitions\Dictionary\Nfc;
+use Byte5Digital\Definitions\Dictionary\Barcode;
+use Byte5Digital\Definitions\Dictionary\Beacon;
+use Byte5Digital\Definitions\Dictionary\Field;
+use Byte5Digital\Definitions\Dictionary\Location;
+use Byte5Digital\Definitions\Dictionary\Nfc;
 
 abstract class AbstractDefinition extends Fluent implements DefinitionInterface
 {
@@ -197,7 +197,7 @@ abstract class AbstractDefinition extends Fluent implements DefinitionInterface
     /**
      *  Beacon marking a location where the pass is relevant.
      *
-     * @param \Thenextweb\Definitions\Dictionary\Beacon $beacon
+     * @param \Byte5Digital\Definitions\Dictionary\Beacon $beacon
      * @return self
      */
     public function addBeacon(Beacon $beacon): self
@@ -214,7 +214,7 @@ abstract class AbstractDefinition extends Fluent implements DefinitionInterface
     /**
      * Locations where the pass is relevant. For example, the location of your store.
      *
-     * @param \Illuminate\Support\Collection<\Thenextweb\Definitions\Dictionary\Location> $locations
+     * @param \Illuminate\Support\Collection<\Byte5Digital\Definitions\Dictionary\Location> $locations
      * @return self
      */
     public function setLocations(Collection $locations): self
@@ -226,7 +226,7 @@ abstract class AbstractDefinition extends Fluent implements DefinitionInterface
     /**
      * Locations where the pass is relevant. For example, the location of your store.
      *
-     * @param \Thenextweb\Definitions\Dictionary\Location $location
+     * @param \Byte5Digital\Definitions\Dictionary\Location $location
      * @return self
      */
     public function addLocation(Location $location): self
@@ -277,7 +277,7 @@ abstract class AbstractDefinition extends Fluent implements DefinitionInterface
      *
      * For iOS 8 and earlier
      *
-     * @param \Thenextweb\Definitions\Dictionary\Barcode $barcode
+     * @param \Byte5Digital\Definitions\Dictionary\Barcode $barcode
      * @deprecated Use addBarcode instead for iOS 9 and later
      */
     public function setBarcode(Barcode $barcode): self
@@ -292,7 +292,7 @@ abstract class AbstractDefinition extends Fluent implements DefinitionInterface
      * valid barcode dictionary in the array. Additional dictionaries can be
      * added as fallbacks.
      *
-     * @param \Illuminate\Support\Collection<\Thenextweb\Definitions\Dictionary\Barcode> $barcodes
+     * @param \Illuminate\Support\Collection<\Byte5Digital\Definitions\Dictionary\Barcode> $barcodes
      * @return self
      */
     public function setBarcodes(Collection $barcodes): self
@@ -304,7 +304,7 @@ abstract class AbstractDefinition extends Fluent implements DefinitionInterface
     /**
      * Information specific to the pass’s barcode.
      *
-     * @param \Thenextweb\Definitions\Dictionary\Barcode $barcode
+     * @param \Byte5Digital\Definitions\Dictionary\Barcode $barcode
      * @return self
      */
     public function addBarcode(Barcode $barcode): self
@@ -416,7 +416,7 @@ abstract class AbstractDefinition extends Fluent implements DefinitionInterface
     /**
      * Information used for Value Added Service Protocol transactions.
      *
-     * @param \Thenextweb\Definitions\Dictionary\Nfc $nfc
+     * @param \Byte5Digital\Definitions\Dictionary\Nfc $nfc
      * @return self
      */
     public function setNfc(Nfc $nfc) : self
@@ -446,7 +446,7 @@ abstract class AbstractDefinition extends Fluent implements DefinitionInterface
     /**
      * Additional fields to be displayed on the front of the pass.
      *
-     * @param \Thenextweb\Definitions\Dictionary\Field $field
+     * @param \Byte5Digital\Definitions\Dictionary\Field $field
      * @return \Illuminate\Support\Collection
      */
     public function prependAuxiliaryField(Field $field) : Collection
@@ -457,7 +457,7 @@ abstract class AbstractDefinition extends Fluent implements DefinitionInterface
     /**
      * Additional fields to be displayed on the front of the pass.
      *
-     * @param \Thenextweb\Definitions\Dictionary\Field $field
+     * @param \Byte5Digital\Definitions\Dictionary\Field $field
      * @return self
      */
     public function addAuxiliaryField(Field $field) : self
@@ -494,7 +494,7 @@ abstract class AbstractDefinition extends Fluent implements DefinitionInterface
     /**
      * Fields to be on the back of the pass.
      *
-     * @param \Thenextweb\Definitions\Dictionary\Field $field
+     * @param \Byte5Digital\Definitions\Dictionary\Field $field
      * @return \Illuminate\Support\Collection
      */
     public function prependBackField(Field $field) : Collection
@@ -505,7 +505,7 @@ abstract class AbstractDefinition extends Fluent implements DefinitionInterface
     /**
      * Fields to be on the back of the pass.
      *
-     * @param \Thenextweb\Definitions\Dictionary\Field $field
+     * @param \Byte5Digital\Definitions\Dictionary\Field $field
      * @return self
      */
     public function addBackField(Field $field) : self
@@ -535,7 +535,7 @@ abstract class AbstractDefinition extends Fluent implements DefinitionInterface
      * Use header fields sparingly; unlike all other fields, they remain visible
      * when a stack of passes are displayed.
      *
-     * @param \Thenextweb\Definitions\Dictionary\Field $field
+     * @param \Byte5Digital\Definitions\Dictionary\Field $field
      * @return self
      */
     public function appendHeaderField(Field $field) : self
@@ -551,7 +551,7 @@ abstract class AbstractDefinition extends Fluent implements DefinitionInterface
      * Use header fields sparingly; unlike all other fields, they remain visible
      * when a stack of passes are displayed.
      *
-     * @param \Thenextweb\Definitions\Dictionary\Field $field
+     * @param \Byte5Digital\Definitions\Dictionary\Field $field
      * @return \Illuminate\Support\Collection
      */
     public function prependHeaderField(Field $field) : Collection
@@ -565,7 +565,7 @@ abstract class AbstractDefinition extends Fluent implements DefinitionInterface
      * Use header fields sparingly; unlike all other fields, they remain visible
      * when a stack of passes are displayed.
      *
-     * @param \Thenextweb\Definitions\Dictionary\Field $field
+     * @param \Byte5Digital\Definitions\Dictionary\Field $field
      * @return self
      */
     public function addHeaderField(Field $field) : self
@@ -587,7 +587,7 @@ abstract class AbstractDefinition extends Fluent implements DefinitionInterface
     /**
      * Fields to be displayed prominently on the front of the pass.
      *
-     * @param \Thenextweb\Definitions\Dictionary\Field $field
+     * @param \Byte5Digital\Definitions\Dictionary\Field $field
      * @return self
      */
     public function appendPrimaryField(Field $field) : self
@@ -600,7 +600,7 @@ abstract class AbstractDefinition extends Fluent implements DefinitionInterface
     /**
      * Fields to be displayed prominently on the front of the pass.
      *
-     * @param \Thenextweb\Definitions\Dictionary\Field $field
+     * @param \Byte5Digital\Definitions\Dictionary\Field $field
      * @return \Illuminate\Support\Collection
      */
     public function prependPrimaryField(Field $field) : Collection
@@ -611,7 +611,7 @@ abstract class AbstractDefinition extends Fluent implements DefinitionInterface
     /**
      * Fields to be displayed prominently on the front of the pass.
      *
-     * @param \Thenextweb\Definitions\Dictionary\Field $field
+     * @param \Byte5Digital\Definitions\Dictionary\Field $field
      * @return self
      */
     public function addPrimaryField(Field $field) : self
@@ -633,7 +633,7 @@ abstract class AbstractDefinition extends Fluent implements DefinitionInterface
     /**
      * Fields to be displayed on the front of the pass.
      *
-     * @param \Thenextweb\Definitions\Dictionary\Field $field
+     * @param \Byte5Digital\Definitions\Dictionary\Field $field
      * @return self
      */
     public function appendSecondaryField(Field $field) : self
@@ -646,7 +646,7 @@ abstract class AbstractDefinition extends Fluent implements DefinitionInterface
     /**
      * Fields to be displayed on the front of the pass.
      *
-     * @param \Thenextweb\Definitions\Dictionary\Field $field
+     * @param \Byte5Digital\Definitions\Dictionary\Field $field
      * @return \Illuminate\Support\Collection
      */
     public function prependSecondaryField(Field $field) : Collection
@@ -657,7 +657,7 @@ abstract class AbstractDefinition extends Fluent implements DefinitionInterface
     /**
      * Fields to be displayed on the front of the pass.
      *
-     * @param \Thenextweb\Definitions\Dictionary\Field $field
+     * @param \Byte5Digital\Definitions\Dictionary\Field $field
      * @return self
      */
     public function addSecondaryField(Field $field) : self

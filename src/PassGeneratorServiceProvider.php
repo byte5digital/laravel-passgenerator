@@ -1,6 +1,6 @@
 <?php
 
-namespace Thenextweb;
+namespace Byte5Digital;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -11,14 +11,14 @@ class PassGeneratorServiceProvider extends ServiceProvider
      *
      * @var bool
      */
-    protected $defer = false;
+    protected bool $defer = false;
 
     /**
      * The commands to be registered from the package.
      *
      * @var array<string>
      */
-    protected $commands = [
+    protected array $commands = [
     ];
 
     /**
@@ -56,11 +56,7 @@ class PassGeneratorServiceProvider extends ServiceProvider
      */
     private function setupConfig() : void
     {
-        //This will merge the 'default' values from the original config file of the package
-        // with the values of the "published" config file (in case the config files were not published)
         $this->mergeConfigFrom(\Safe\realpath(__DIR__ . '/../config/passgenerator.php'), 'passgenerator');
-
-        $this->mergeConfigFrom(\Safe\realpath(__DIR__ . '/../config/pass-filesystem.php'), 'filesystems');
     }
 
     /**

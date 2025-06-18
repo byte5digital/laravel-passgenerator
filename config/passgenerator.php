@@ -5,7 +5,11 @@ return [
     'certificate_store_password' => env('CERTIFICATE_PASS', ''), // The password to unlo
     'wwdr_certificate_path' => env('WWDR_CERTIFICATE', ''), // Get from here https://www.apple.com/certificateauthority/ and export to PEM
 
+    'storage_disk' => env('PASSGENERATOR_STORAGE_DISK', 'local'), // The disk to use for storing the pass files
+    'storage_path' => env('PASSGENERATOR_STORAGE_PATH', 'passgenerator/certs'), // The path to store the pass files on the disk
+
     'pass_type_identifier' => env('PASS_TYPE_IDENTIFIER', ''),
     'organization_name' => env('ORGANIZATION_NAME', ''),
     'team_identifier' => env('TEAM_IDENTIFIER', ''),
+
 ];

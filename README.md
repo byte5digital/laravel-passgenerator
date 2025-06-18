@@ -17,15 +17,15 @@ Only things needed are Laravel 7+ and to have the [PHP Zip extension](http://php
 The best and easiest way to install the package is using the [Composer](https://getcomposer.org/) package manager. To do so, run this command in your project root:
 
 ```sh
-composer require thenextweb/passgenerator
+composer require byte5digital/passgenerator
 ```
 
-Then, add the `Thenextweb\PassGeneratorServiceProvider` provider to the providers array in `config/app.php`:
+Then, add the `Byte5Digital\PassGeneratorServiceProvider` provider to the providers array in `config/app.php`:
 
 ```php
 'providers' => [
 // ...
-    Thenextweb\PassGeneratorServiceProvider::class,
+    Byte5Digital\PassGeneratorServiceProvider::class,
 ],
 ```
 
@@ -57,12 +57,14 @@ Once all this tedious process has been done, everything is almost ready to start
 * CERTIFICATE_PATH ➪ The path to the `.p12` pass certificate.
 * CERTIFICATE_PASS ➪ The password set to unlock the certificate when it was exported.
 * WWDR_CERTIFICATE ➪ The path to the _Apple Worldwide Developer Relations Intermediate Certificate_ on `.pem` format.
+* PASSGENERATOR_STORAGE_DISK todo
+* PASSGENERATOR_STORAGE_PATH todo
 
 In case there is a reason the config file must be modified (conflicting env keys, dynamic certificates required...), it can be published with the following command:
 
 ```sh
 // file will be at config/passgenerator.php
-php artisan vendor:publish --provider="Thenextweb\PassGeneratorServiceProvider"
+php artisan vendor:publish --provider="Byte5Digital\PassGeneratorServiceProvider"
 ```
 
 ## 🚀 Usage
@@ -70,7 +72,7 @@ To create a pass for the first time, you have to first create the pass definitio
 
 ```php
 
-use Thenextweb\PassGenerator;
+use Byte5Digital\PassGenerator;
 
 //...
 
@@ -219,7 +221,7 @@ It is also possible to retrieve the actual path to a pass on your filesystem. By
 It is also possible to programatically create/modify a pass using the definitions objects. Eg.-
 
 ```
-$coupon = Thenextweb\Definitions\Coupon();
+$coupon = Byte5Digital\Definitions\Coupon();
 $coupon->setDescription('Coupon description');
 $coupon->setSerialNumber('123456');
 

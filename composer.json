@@ -1,5 +1,5 @@
 {
-    "name": "thenextweb/passgenerator",
+    "name": "byte5digital/passgenerator",
     "description": "A Laravel package to create Apple Wallet (old Passbook) compatible tickets.",
     "type": "library",
     "license": "GPL-3.0-or-later",
@@ -11,14 +11,20 @@
     ],
     "authors": [
         {
+            "name": "byte5 GmbH",
+            "email": "info@byte5.de"
+        },
+        {
             "name": "The Next Web BV",
             "email": "support@thenextweb.com"
         }
     ],
     "require": {
         "ext-zip": "*",
-        "illuminate/support": "^7.0|^8.0|^9.0|^10.0|^11.0",
-        "illuminate/filesystem": "^7.0|^8.0|^9.0|^10.0|^11.0",
+        "ext-json": "*",
+        "ext-openssl": "*",
+        "illuminate/support": "^7.0|^8.0|^9.0|^10.0|^11.0|^12.0",
+        "illuminate/filesystem": "^7.0|^8.0|^9.0|^10.0|^11.0|^12.0",
         "thecodingmachine/safe": "^2.1"
     },
     "require-dev": {
@@ -31,16 +37,16 @@
     },
     "autoload": {
         "psr-4": {
-            "Thenextweb\\": "src"
+            "Byte5Digital\\": "src"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Thenextweb\\PassGeneratorServiceProvider"
+                "Byte5Digital\\PassGeneratorServiceProvider"
             ],
             "aliases": {
-                "PassGenerator": "Thenextweb\\Facades\\PassGenerator"
+                "PassGenerator": "Byte5Digital\\Facades\\PassGenerator"
             }
         }
     },
