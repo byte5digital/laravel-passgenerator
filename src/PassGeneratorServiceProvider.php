@@ -26,7 +26,7 @@ class PassGeneratorServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->setupConfig();
 
@@ -38,7 +38,7 @@ class PassGeneratorServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
         $this->app->bind('passgenerator', function ($app) {
             return new PassGenerator($app);
@@ -54,7 +54,7 @@ class PassGeneratorServiceProvider extends ServiceProvider
      *
      * http://stagerightlabs.com/blog/laravel5-pacakge-development-service-provider
      */
-    private function setupConfig() : void
+    private function setupConfig(): void
     {
         $this->mergeConfigFrom(\Safe\realpath(__DIR__ . '/../config/passgenerator.php'), 'passgenerator');
     }
@@ -62,7 +62,7 @@ class PassGeneratorServiceProvider extends ServiceProvider
     /**
      * Publish all the package's config files to the app.
      */
-    private function publishAllConfigs() : void
+    private function publishAllConfigs(): void
     {
         $this->publishes([
             \Safe\realpath(__DIR__ . '/../config/passgenerator.php') => config_path('passgenerator.php'),
