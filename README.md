@@ -8,12 +8,14 @@ Passgenerator is a Laravel7+ package that allows you to easily create passes com
 * [🍎 Apple docs](#-apple-docs)
 * [📝 Configuration](#-configuration)
 * [🚀 Usage](#-usage)
+* [❓ Troubleshooting](#-troubleshooting)
 
 ## 👮 Requirements
 
 Only things needed are Laravel 7+ and to have the [PHP Zip extension](http://php.net/manual/en/book.zip.php) installed and enabled.
 
 ## 💾 Installation
+
 The best and easiest way to install the package is using the [Composer](https://getcomposer.org/) package manager. To do so, run this command in your project root:
 
 ```sh
@@ -57,8 +59,8 @@ Once all this tedious process has been done, everything is almost ready to start
 * CERTIFICATE_PATH ➪ The path to the `.p12` pass certificate.
 * CERTIFICATE_PASS ➪ The password set to unlock the certificate when it was exported.
 * WWDR_CERTIFICATE ➪ The path to the _Apple Worldwide Developer Relations Intermediate Certificate_ on `.pem` format.
-* PASSGENERATOR_STORAGE_DISK todo
-* PASSGENERATOR_STORAGE_PATH todo
+* PASSGENERATOR_STORAGE_DISK ➪ The name of the disk where the passes will be stored. This should match a disk defined in your `config/filesystems.php` file. By default, it is set to `local`.
+* PASSGENERATOR_STORAGE_PATH ➪ The path where the passes will be stored. By default, it is set to `passgenerator/certs`.
 
 In case there is a reason the config file must be modified (conflicting env keys, dynamic certificates required...), it can be published with the following command:
 
@@ -253,4 +255,19 @@ $barcode = new Barcode('7898466321', Barcode::FORMAT_CODE128);
 $coupon->addBarcode($barcode);
 
 $passgenerator->setPassDefinition($coupon);
+```
+
+## ❓ Troubleshooting
+### **error:0308010C:digital envelope routines::unsupported**
+If you run into this error, you are probably using OpenSSL 3.0 and trying to work with a legacy certificate.
+While some people recommend to enable the legacy option for OpenSSL 3.0, this doesn't solve the core problem.
+
+Instead, you should convert your certificate to a more modern format. You can do this by running the following commands:
+
+```sh
+#unpack the key: 
+openssl pkcs12 -in PassType.p12 -nodes -out key_decrypted.tmp
+
+#pack the key using a more moden algorithm:
+openssl pkcs12 -export -in key_decrypted.tmp -out new.p12 -certpbe AES-256-CBC -keypbe AES-256-CBC
 ```
