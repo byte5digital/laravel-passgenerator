@@ -199,6 +199,7 @@ class PassGenerator
      *
      *
      * @return void
+     *
      * @throws JsonException
      */
     public function setPassDefinitionJson(string $jsonDefinition)
@@ -302,6 +303,7 @@ class PassGenerator
      * @return string A clean DER signature
      *
      * @throws UrlException
+     *
      * @internal param string $signature The returned result of openssl_pkcs7_sign()
      */
     private function removeMimeFromEmailSignature(string $emailSignature): string
