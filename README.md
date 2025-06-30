@@ -93,7 +93,6 @@ storage/
 │  │  │  │  ├─ certificate.p12
 │  │  │  ├─ passes/
 │  │  │  │  ├─ your_generated_pass.pkpass
-
 ```
 
 ## 🚀 Usage
