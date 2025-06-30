@@ -12,7 +12,7 @@ jobs:
       - name: Install Composer dependencies
         uses: php-actions/composer@v6
         with:
-          php_extensions: zip, json, openssl
+          php_extensions: zip json openssl
 
       - name: Run PHPStan
         uses: php-actions/phpstan@v3
