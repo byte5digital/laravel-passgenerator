@@ -6,10 +6,10 @@ use Byte5\Definitions\DefinitionInterface;
 use Illuminate\Support\Facades\Storage;
 use InvalidArgumentException;
 use RuntimeException;
-use Safe\Exceptions\JsonException;
 use Safe\Exceptions\OpensslException;
-use function Safe\openssl_x509_read;
 use ZipArchive;
+
+use function Safe\openssl_x509_read;
 
 class PassGenerator
 {
@@ -229,7 +229,6 @@ class PassGenerator
      *
      *
      * @return void
-     *
      */
     public function setPassDefinitionJson(string $jsonDefinition)
     {
@@ -430,7 +429,7 @@ class PassGenerator
 
         $signaturePath = config('passgenerator.storage_path').'/'.$this->passRealPath.'/'.$this->signatureFilename;
 
-        $zip = new ZipArchive();
+        $zip = new ZipArchive;
 
         if (! $zip->open($zipPath, ZipArchive::CREATE)) {
             throw new RuntimeException('There was a problem while creating the zip file');
