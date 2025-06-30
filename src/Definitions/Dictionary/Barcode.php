@@ -7,7 +7,7 @@ use InvalidArgumentException;
 
 class Barcode extends Fluent
 {
-    public public const FORMAT_AZTEX = 'PKBarcodeFormatAztec';
+    public const FORMAT_AZTEX = 'PKBarcodeFormatAztec';
 
     public const FORMAT_CODE128 = 'PKBarcodeFormatCode128';
 
