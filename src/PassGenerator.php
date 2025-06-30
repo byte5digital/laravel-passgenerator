@@ -127,9 +127,9 @@ class PassGenerator
         $this->passRelativePath = config('passgenerator.storage_path').'/'.$passId;
         $this->passFilename = $passId.'.pkpass';
 
-        if (Storage::disk(config('passgenerator.storage_disk'))->exists($this->passRelativePath . '.pkpass')) {
+        if (Storage::disk(config('passgenerator.storage_disk'))->exists($this->passRelativePath.'.pkpass')) {
             if ($replaceExistent) {
-                Storage::disk(config('passgenerator.storage_disk'))->delete($this->passRelativePath . '.pkpass');
+                Storage::disk(config('passgenerator.storage_disk'))->delete($this->passRelativePath.'.pkpass');
             } else {
                 throw new RuntimeException(
                     'The file '.$this->passFilename.' already exists, try another pass_id or download.'
@@ -234,14 +234,14 @@ class PassGenerator
         // Get it out of the tmp folder and clean everything up
         Storage::disk(config('passgenerator.storage_disk'))->move(
             $this->passRelativePath.'/'.$this->passFilename,
-            $this->passRelativePath . '.pkpass');
+            $this->passRelativePath.'.pkpass');
 
         Storage::disk(config('passgenerator.storage_disk'))
             ->deleteDirectory($this->passRelativePath);
 
         // Return the contents, but keep the pkpass stored for future downloads
         return Storage::disk(config('passgenerator.storage_disk'))
-            ->get($this->passRelativePath . '.pkpass');
+            ->get($this->passRelativePath.'.pkpass');
     }
 
     /**
