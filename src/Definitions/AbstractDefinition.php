@@ -97,9 +97,7 @@ abstract class AbstractDefinition extends Fluent implements DefinitionInterface
      * If this key is present, the associatedStoreIdentifiers key
      * must also be present.
      *
-     * @param  string  $appLaunchURL
      * @param  array|null  $associatedStoreIdentifier  A list of iTunes Store item identifiers for the associated apps.
-     * @return AbstractDefinition
      */
     public function setAppLaunchURL(string $appLaunchURL, ?array $associatedStoreIdentifier = null): self
     {

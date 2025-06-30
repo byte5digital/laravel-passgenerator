@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpMissingParentConstructorInspection */
+<?php
+
+/** @noinspection PhpMissingParentConstructorInspection */
 
 /**
  * Created by PhpStorm.
