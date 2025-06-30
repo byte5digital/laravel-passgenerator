@@ -1,6 +1,6 @@
 # Passgenerator
-
 Passgenerator is a Laravel7+ package that allows you to easily create passes compatible with Apple Wallet (former Passbook).
+
 
 # 👉 Table of Contents 👈
 * [👮 Requirements](#-requirements)
@@ -9,10 +9,14 @@ Passgenerator is a Laravel7+ package that allows you to easily create passes com
 * [📝 Configuration](#-configuration)
 * [🚀 Usage](#-usage)
 * [❓ Troubleshooting](#-troubleshooting)
+* [❓ About us](#-about-us)
 
 ## 👮 Requirements
 
-Only things needed are Laravel 7+ and to have the [PHP Zip extension](http://php.net/manual/en/book.zip.php) installed and enabled.
+Only things needed are Laravel 7+ and to have the following extensions installed and enabled:
+* ext-json
+* ext-zip
+* ext-openssl
 
 ## 💾 Installation
 
@@ -271,3 +275,13 @@ openssl pkcs12 -in PassType.p12 -nodes -out key_decrypted.tmp
 #pack the key using a more moden algorithm:
 openssl pkcs12 -export -in key_decrypted.tmp -out new.p12 -certpbe AES-256-CBC -keypbe AES-256-CBC
 ```
+
+## ❓ About Us
+
+<img src="https://raw.githubusercontent.com/byte5digital/.github/main/profile/assets/byte5.svg" alt="byte5 Logo" width="200" />
+
+We’re a development company based in Frankfurt, Germany — **remote-friendly, open-minded, and tech-driven**. Our team brings deep expertise in Laravel, Umbraco, and decentralized tech like IOTA. We collaborate with clients who care about clean code, scalable solutions, and long-term maintainability.
+
+We contribute to open source, run [Laravel DACH Meetups](https://www.meetup.com/laravel-meetup-germany/), and support developer communities across the DACH region.
+
+If you love building smart solutions with real impact — we should talk.

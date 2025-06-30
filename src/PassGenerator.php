@@ -6,7 +6,9 @@ use Byte5\Definitions\DefinitionInterface;
 use Illuminate\Support\Facades\Storage;
 use InvalidArgumentException;
 use RuntimeException;
+use Safe\Exceptions\JsonException;
 use Safe\Exceptions\OpensslException;
+use Safe\Exceptions\UrlException;
 use ZipArchive;
 
 use function Safe\base64_decode;
@@ -43,16 +45,6 @@ class PassGenerator
      * All the assets (images) to be included on the pass.
      */
     private array $assets = [];
-
-    /**
-     * All the localized assets (strings and images).
-     */
-    private $localizedAssets;
-
-    /**
-     * The localizations included on the pass.
-     */
-    private $localizations;
 
     /**
      * Filename for the pass. If provided, it'll be the pass_id with .pkpass
@@ -182,34 +174,6 @@ class PassGenerator
     }
 
     /**
-     * Add localized assets to the pass.
-     *
-     * @param  string  $assetPath
-     * @param  string  $localization  The localization to be used
-     *
-     * @note NOT SUPPORTED YET
-     *
-     * @return void
-     *
-     * @throws InvalidArgumentException
-     *
-     * @todo ADD IMPLEMENTATION FOR LOCALIZATION
-     */
-    public function addLocalizedAssets($assetPath, $localization)
-    {
-        throw new RuntimeException('Not implemented yet');
-        //        if (!is_file($assetPath)) {
-        //            throw new InvalidArgumentException("The file $assetPath does NOT exist");
-        //        }
-        //
-        //        $this->localizedAssets[$localization][basename($assetPath)] = $assetPath;
-        //
-        //        if (!in_array($localization, $this->localizations)) {
-        //            $this->localizations[] = $localization;
-        //        }
-    }
-
-    /**
      * Set the pass definition with an array.
      *
      * @param  DefinitionInterface|array  $definition
@@ -235,6 +199,7 @@ class PassGenerator
      *
      *
      * @return void
+     * @throws JsonException
      */
     public function setPassDefinitionJson(string $jsonDefinition)
     {
@@ -327,13 +292,6 @@ class PassGenerator
             $hashes[$filename] = sha1(file_get_contents($path));
         }
 
-        //      // TODO: Add support for localization
-        //         foreach($this->localizations as $localization) {
-        //             foreach($this->localizedAssets[$localization] as $filename => $path) {
-        //                 $hashes[$filename] = sha1(file_get_contents($path));
-        //             }
-        //         }
-
         return json_encode((object) $hashes);
     }
 
@@ -343,6 +301,7 @@ class PassGenerator
      *
      * @return string A clean DER signature
      *
+     * @throws UrlException
      * @internal param string $signature The returned result of openssl_pkcs7_sign()
      */
     private function removeMimeFromEmailSignature(string $emailSignature): string
