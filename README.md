@@ -73,6 +73,29 @@ In case there is a reason the config file must be modified (conflicting env keys
 php artisan vendor:publish --provider="Byte5\PassGeneratorServiceProvider"
 ```
 
+#### Below is a reasonable default for your .env file:
+```dotenv
+CERTIFICATE_PATH="passgenerator/certs/certificate.p12"
+CERTIFICATE_PASS="YOUR-CERTIFICATE-PASSWORD"
+WWDR_CERTIFICATE="passgenerator/certs/AppleWWDRCA.pem"
+PASSGENERATOR_STORAGE_DISK="private"
+PASSGENERATOR_STORAGE_PATH="passgenerator/passes"
+```
+
+This will ensure the following file structure:
+```
+storage/
+├─ app/
+│  ├─ private/
+│  │  ├─ passgenerator/
+│  │  │  ├─ certs/
+│  │  │  │  ├─ AppleWWDRCA.pem
+│  │  │  │  ├─ certificate.p12
+│  │  │  ├─ passes/
+│  │  │  │  ├─ your_generated_pass.pkpass
+
+```
+
 ## 🚀 Usage
 To create a pass for the first time, you have to first create the pass definition, either as a JSON file or as an array. It is *really* recommended to have already read the [Apple docs](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/PassKit_PG/YourFirst.html#//apple_ref/doc/uid/TP40012195-CH2-SW1) as well as the [PassKit Package Format Reference](https://developer.apple.com/library/ios/documentation/UserExperience/Reference/PassKit_Bundle/Chapters/Introduction.html#//apple_ref/doc/uid/TP40012026).
 
