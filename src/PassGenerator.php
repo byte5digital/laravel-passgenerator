@@ -127,9 +127,9 @@ class PassGenerator
         $this->passRelativePath = config('passgenerator.storage_path').'/'.$passId;
         $this->passFilename = $passId.'.pkpass';
 
-        if (Storage::disk(config('passgenerator.storage_disk'))->exists($this->passFilename)) {
+        if (Storage::disk(config('passgenerator.storage_disk'))->exists($this->passRelativePath . '.pkpass')) {
             if ($replaceExistent) {
-                Storage::disk(config('passgenerator.storage_disk'))->delete($this->passFilename);
+                Storage::disk(config('passgenerator.storage_disk'))->delete($this->passRelativePath . '.pkpass');
             } else {
                 throw new RuntimeException(
                     'The file '.$this->passFilename.' already exists, try another pass_id or download.'
@@ -223,7 +223,7 @@ class PassGenerator
         $manifest = $this->createJsonManifest();
 
         Storage::disk(config('passgenerator.storage_disk'))
-            ->put(config('passgenerator.storage_path').'/'.$this->passRelativePath.'/manifest.json', $manifest);
+            ->put($this->passRelativePath.'/manifest.json', $manifest);
 
         // Sign manifest with the certificate
         $this->signManifest();
@@ -233,15 +233,15 @@ class PassGenerator
 
         // Get it out of the tmp folder and clean everything up
         Storage::disk(config('passgenerator.storage_disk'))->move(
-            config('passgenerator.storage_path').'/'.$this->passRelativePath.'/'.$this->passFilename,
-            $this->passFilename);
+            $this->passRelativePath.'/'.$this->passFilename,
+            $this->passRelativePath . '.pkpass');
 
         Storage::disk(config('passgenerator.storage_disk'))
-            ->deleteDirectory(config('passgenerator.storage_path').'/'.$this->passRelativePath);
+            ->deleteDirectory($this->passRelativePath);
 
         // Return the contents, but keep the pkpass stored for future downloads
         return Storage::disk(config('passgenerator.storage_disk'))
-            ->get(config('passgenerator.storage_path').'/'.$this->passFilename);
+            ->get($this->passRelativePath . '.pkpass');
     }
 
     /**
@@ -375,11 +375,11 @@ class PassGenerator
         // PKCS7 returns a signature on PEM format (.p7s), we only need the DER signature so Apple does not cry.
         // It turns out we are lucky since p7s format is just a Base64 encoded DER signature
         // enclosed between some email headers a MIME bs, so we just need to remove some lines
-        $signature = Storage::disk(config('passgenerator.storage_disk'))->get(config('passgenerator.storage_path').'/'.$this->passRelativePath.'/'.$this->signatureFilename);
+        $signature = Storage::disk(config('passgenerator.storage_disk'))->get($this->passRelativePath.'/'.$this->signatureFilename);
 
         $signature = $this->removeMimeFromEmailSignature($signature);
 
-        Storage::disk(config('passgenerator.storage_disk'))->put(config('passgenerator.storage_path').'/'.$this->passRelativePath.'/'.$this->signatureFilename,
+        Storage::disk(config('passgenerator.storage_disk'))->put($this->passRelativePath.'/'.$this->signatureFilename,
             $signature);
     }
 
@@ -390,11 +390,11 @@ class PassGenerator
      */
     private function zipItAll(): void
     {
-        $zipPath = config('passgenerator.storage_path').'/'.$this->passRealPath.'/'.$this->passFilename;
+        $zipPath = $this->passRealPath.'/'.$this->passFilename;
 
-        $manifestPath = config('passgenerator.storage_path').'/'.$this->passRealPath.'/'.$this->manifestFilename;
+        $manifestPath = $this->passRealPath.'/'.$this->manifestFilename;
 
-        $signaturePath = config('passgenerator.storage_path').'/'.$this->passRealPath.'/'.$this->signatureFilename;
+        $signaturePath = $this->passRealPath.'/'.$this->signatureFilename;
 
         $zip = new ZipArchive;
 
