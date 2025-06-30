@@ -9,6 +9,12 @@ use RuntimeException;
 use Safe\Exceptions\OpensslException;
 use ZipArchive;
 
+use function Safe\base64_decode;
+use function Safe\file_get_contents;
+use function Safe\json_decode;
+use function Safe\json_encode;
+use function Safe\openssl_pkcs7_sign;
+use function Safe\openssl_pkey_get_private;
 use function Safe\openssl_x509_read;
 
 class PassGenerator
@@ -398,8 +404,8 @@ class PassGenerator
         openssl_pkcs7_sign(
             $manifestPath,
             $signaturePath,
-            $certResource,
-            $privateKey,
+            $certResource, // @phpstan-ignore argument.type
+            $privateKey, // @phpstan-ignore argument.type
             [],
             PKCS7_BINARY | PKCS7_DETACHED,
             Storage::disk(config('passgenerator.storage_disk'))->path($this->wwdrCertPath)
