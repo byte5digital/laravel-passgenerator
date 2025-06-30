@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Jean Rumeau
@@ -22,11 +23,8 @@ class EventTicket extends AbstractDefinition
      * passes for different connections of the same trip.
      *
      * Available in iOS 7.0.
-     *
-     * @param string $groupingIdentifier
-     * @return self
      */
-    public function setGroupingIdentifier(string $groupingIdentifier) : self
+    public function setGroupingIdentifier(string $groupingIdentifier): self
     {
         $this->attributes['groupingIdentifier'] = $groupingIdentifier;
 

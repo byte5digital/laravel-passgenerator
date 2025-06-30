@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Jean Rumeau
@@ -10,8 +11,5 @@ namespace Byte5\Definitions;
 
 interface DefinitionInterface
 {
-    /**
-     * @return array
-     */
-    public function getPassDefinition() : array;
+    public function getPassDefinition(): array;
 }

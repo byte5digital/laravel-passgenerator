@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Jean Rumeau
@@ -13,15 +14,21 @@ use InvalidArgumentException;
 
 class Field extends Fluent
 {
-    const DETECTOR_TYPE_PHONE = 'PKDataDetectorTypePhoneNumber';
-    const DETECTOR_TYPE_LINK = 'PKDataDetectorTypeLink';
-    const DETECTOR_TYPE_ADDRESS = 'PKDataDetectorTypeAddress';
-    const DETECTOR_TYPE_CALENDAR_EVENT = 'PKDataDetectorTypeCalendarEvent';
+    public const DETECTOR_TYPE_PHONE = 'PKDataDetectorTypePhoneNumber';
 
-    const TEXT_ALIGNMENT_LEFT = 'PKTextAlignmentLeft';
-    const TEXT_ALIGNMENT_CENTER = 'PKTextAlignmentCenter';
-    const TEXT_ALIGNMENT_RIGHT = 'PKTextAlignmentRight';
-    const TEXT_ALIGNMENT_NATURAL = 'PKTextAlignmentNatural';
+    public const DETECTOR_TYPE_LINK = 'PKDataDetectorTypeLink';
+
+    public const DETECTOR_TYPE_ADDRESS = 'PKDataDetectorTypeAddress';
+
+    public const DETECTOR_TYPE_CALENDAR_EVENT = 'PKDataDetectorTypeCalendarEvent';
+
+    public const TEXT_ALIGNMENT_LEFT = 'PKTextAlignmentLeft';
+
+    public const TEXT_ALIGNMENT_CENTER = 'PKTextAlignmentCenter';
+
+    public const TEXT_ALIGNMENT_RIGHT = 'PKTextAlignmentRight';
+
+    public const TEXT_ALIGNMENT_NATURAL = 'PKTextAlignmentNatural';
 
     /** @var array<string> */
     private $validDetectors = [
@@ -41,10 +48,11 @@ class Field extends Fluent
 
     /**
      * Field constructor.
-     * @param string $key The key must be unique within the scope of
-     *                    the entire pass. For example, “departure-gate.”
-     * @param string $value Value of the field, for example, 42.
-     * @param array $attributes Other attributes for the field.
+     *
+     * @param  string  $key  The key must be unique within the scope of
+     *                       the entire pass. For example, “departure-gate.”
+     * @param  string  $value  Value of the field, for example, 42.
+     * @param  array  $attributes  Other attributes for the field.
      */
     public function __construct(string $key, string $value, array $attributes = [])
     {
@@ -71,11 +79,8 @@ class Field extends Fluent
      * This key’s value overrides the text specified by the value key.
      *
      * Available in iOS 7.0.
-     *
-     * @param string $attributedValue
-     * @return self
      */
-    public function setAttributedValue(string $attributedValue) : self
+    public function setAttributedValue(string $attributedValue): self
     {
         $this->attributes['attributedValue'] = $attributedValue;
 
@@ -88,11 +93,8 @@ class Field extends Fluent
      * field’s new value. For example, “Gate changed to %@.”
      *
      * If you don’t specify a change message, the user isn’t notified when the field changes.
-     *
-     * @param string $changeMessage
-     * @return self
      */
-    public function setChangeMessage(string $changeMessage) : self
+    public function setChangeMessage(string $changeMessage): self
     {
         $this->attributes['changeMessage'] = $changeMessage;
 
@@ -107,15 +109,16 @@ class Field extends Fluent
      *
      * Data detectors are applied only to back fields.
      *
-     * @param array $dataDetectorTypes
-     * @throws \InvalidArgumentException
      * @return $this
+     *
+     * @throws InvalidArgumentException
      */
-    public function setDataDetectorTypes(array $dataDetectorTypes) : self
+    public function setDataDetectorTypes(array $dataDetectorTypes): self
     {
         $this->validateDetectors($dataDetectorTypes);
 
         $this->attributes['dataDetectorTypes'] = $dataDetectorTypes;
+
         return $this;
     }
 
@@ -123,10 +126,9 @@ class Field extends Fluent
      * The key must be unique within the scope of the entire pass.
      * For example, “departure-gate.”
      *
-     * @param string $key
      * @return $this
      */
-    public function setKey(string $key) : self
+    public function setKey(string $key): self
     {
         $this->attributes['key'] = $key;
 
@@ -135,32 +137,22 @@ class Field extends Fluent
 
     /**
      * Label text for the field.
-     * @param string $label
-     * @return self
      */
-    public function setLabel(string $label) : self
+    public function setLabel(string $label): self
     {
         $this->attributes['label'] = $label;
 
         return $this;
     }
 
-    /**
-     * @param string $textAlignment
-     * @return self
-     */
-    public function setTextAlignment(string $textAlignment) : self
+    public function setTextAlignment(string $textAlignment): self
     {
         $this->attributes['textAlignment'] = $textAlignment;
 
         return $this;
     }
 
-    /**
-     * @param string $value
-     * @return self
-     */
-    public function setValue(string $value) : self
+    public function setValue(string $value): self
     {
         $this->attributes['value'] = $value;
 
@@ -168,14 +160,13 @@ class Field extends Fluent
     }
 
     /**
-     * @throws \InvalidArgumentException
-     * @return void
+     * @throws InvalidArgumentException
      */
-    private function validateDetectors(array $detectors) : void
+    private function validateDetectors(array $detectors): void
     {
-        if (!empty($detectors)) {
+        if (! empty($detectors)) {
             foreach ($detectors as $detector) {
-                if (!in_array($detector, $this->validDetectors)) {
+                if (! in_array($detector, $this->validDetectors)) {
                     throw new InvalidArgumentException("Invalid detector found: $detector");
                 }
             }
@@ -183,12 +174,11 @@ class Field extends Fluent
     }
 
     /**
-     * @throws \InvalidArgumentException
-     * @return void
+     * @throws InvalidArgumentException
      */
-    private function validateAlignment(string $alignment) : void
+    private function validateAlignment(string $alignment): void
     {
-        if (!in_array($alignment, $this->validAlignments)) {
+        if (! in_array($alignment, $this->validAlignments)) {
             throw new InvalidArgumentException("Invalid alignment: $alignment");
         }
     }

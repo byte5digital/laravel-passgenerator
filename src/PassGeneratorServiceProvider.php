@@ -8,8 +8,6 @@ class PassGeneratorServiceProvider extends ServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
      */
     protected bool $defer = false;
 
@@ -23,8 +21,6 @@ class PassGeneratorServiceProvider extends ServiceProvider
 
     /**
      * Perform post-registration booting of services.
-     *
-     * @return void
      */
     public function boot(): void
     {
@@ -35,8 +31,6 @@ class PassGeneratorServiceProvider extends ServiceProvider
 
     /**
      * Register any package services.
-     *
-     * @return void
      */
     public function register(): void
     {
@@ -56,7 +50,7 @@ class PassGeneratorServiceProvider extends ServiceProvider
      */
     private function setupConfig(): void
     {
-        $this->mergeConfigFrom(\Safe\realpath(__DIR__ . '/../config/passgenerator.php'), 'passgenerator');
+        $this->mergeConfigFrom(\Safe\realpath(__DIR__.'/../config/passgenerator.php'), 'passgenerator');
     }
 
     /**
@@ -65,7 +59,7 @@ class PassGeneratorServiceProvider extends ServiceProvider
     private function publishAllConfigs(): void
     {
         $this->publishes([
-            \Safe\realpath(__DIR__ . '/../config/passgenerator.php') => config_path('passgenerator.php'),
+            \Safe\realpath(__DIR__.'/../config/passgenerator.php') => config_path('passgenerator.php'),
         ], 'config');
     }
 }

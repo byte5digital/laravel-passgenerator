@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMissingParentConstructorInspection */
+
 /**
  * Created by PhpStorm.
  * User: Jean Rumeau
@@ -12,11 +13,15 @@ use InvalidArgumentException;
 
 class BoardingPass extends AbstractDefinition
 {
-    const TRANSIT_TYPE_AIR = 'PKTransitTypeAir';
-    const TRANSIT_TYPE_BOAT = 'PKTransitTypeBoat';
-    const TRANSIT_TYPE_BUS = 'PKTransitTypeBus';
-    const TRANSIT_TYPE_GENERIC = 'PKTransitTypeGeneric';
-    const TRANSIT_TYPE_TRAIN = 'PKTransitTypeTrain';
+    public const TRANSIT_TYPE_AIR = 'PKTransitTypeAir';
+
+    public const TRANSIT_TYPE_BOAT = 'PKTransitTypeBoat';
+
+    public const TRANSIT_TYPE_BUS = 'PKTransitTypeBus';
+
+    public const TRANSIT_TYPE_GENERIC = 'PKTransitTypeGeneric';
+
+    public const TRANSIT_TYPE_TRAIN = 'PKTransitTypeTrain';
 
     /** @var array<string> */
     private $validTransitTypes = [
@@ -31,7 +36,7 @@ class BoardingPass extends AbstractDefinition
 
     public function __construct(array $attributes)
     {
-        if (isset($attributes['transitType']) && !in_array($attributes['transitType'], $this->validTransitTypes)) {
+        if (isset($attributes['transitType']) && ! in_array($attributes['transitType'], $this->validTransitTypes)) {
             throw new InvalidArgumentException("Invalid Transit Type: {$attributes['transitType']}");
         }
     }
@@ -39,13 +44,11 @@ class BoardingPass extends AbstractDefinition
     /**
      * Type of transit. Must be one of the class constants.
      *
-     * @param string $transitType
-     * @throws \InvalidArgumentException
-     * @return self
+     * @throws InvalidArgumentException
      */
-    public function setTransitType(string $transitType) : self
+    public function setTransitType(string $transitType): self
     {
-        if (!in_array($transitType, $this->validTransitTypes)) {
+        if (! in_array($transitType, $this->validTransitTypes)) {
             throw new InvalidArgumentException("Invalid Transit Type: $transitType");
         }
         $this->attributes['transitType'] = $transitType;
@@ -63,11 +66,8 @@ class BoardingPass extends AbstractDefinition
      * passes for different connections of the same trip.
      *
      * Available in iOS 7.0.
-     *
-     * @param string $groupingIdentifier
-     * @return self
      */
-    public function setGroupingIdentifier(string $groupingIdentifier) : self
+    public function setGroupingIdentifier(string $groupingIdentifier): self
     {
         $this->attributes['groupingIdentifier'] = $groupingIdentifier;
 

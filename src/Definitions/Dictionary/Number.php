@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Jean Rumeau
@@ -12,10 +13,13 @@ use InvalidArgumentException;
 
 class Number extends Field
 {
-    const STYLE_DECIMAL = 'PKNumberStyleDecimal';
-    const STYLE_PERCENT = 'PKNumberStylePercent';
-    const STYLE_SCIENTIFIC = 'PKNumberStyleScientific';
-    const STYLE_SPELLOUT = 'PKNumberStyleSpellOut';
+    public const STYLE_DECIMAL = 'PKNumberStyleDecimal';
+
+    public const STYLE_PERCENT = 'PKNumberStylePercent';
+
+    public const STYLE_SCIENTIFIC = 'PKNumberStyleScientific';
+
+    public const STYLE_SPELLOUT = 'PKNumberStyleSpellOut';
 
     /** @var array<string> */
     private $validNumberStyles = [
@@ -27,10 +31,8 @@ class Number extends Field
 
     /**
      * ISO 4217 currency code for the field’s value.
-     * @param string $currencyCode
-     * @return self
      */
-    public function setCurrencyCode(string $currencyCode) : self
+    public function setCurrencyCode(string $currencyCode): self
     {
         $this->attributes['currencyCode'] = $currencyCode;
 
@@ -39,13 +41,12 @@ class Number extends Field
 
     /**
      * Style of number to display. Must be one of the class constants.
-     * @param string $numberStyle
-     * @throws \InvalidArgumentException
-     * @return self
+     *
+     * @throws InvalidArgumentException
      */
-    public function setNumberStyle(string $numberStyle) : self
+    public function setNumberStyle(string $numberStyle): self
     {
-        if (!in_array($numberStyle, $this->validNumberStyles)) {
+        if (! in_array($numberStyle, $this->validNumberStyles)) {
             throw new InvalidArgumentException("Invalid number style: $numberStyle");
         }
 

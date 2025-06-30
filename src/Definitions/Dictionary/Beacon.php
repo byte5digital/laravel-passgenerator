@@ -6,8 +6,12 @@ use Illuminate\Support\Fluent;
 
 class Beacon extends Fluent
 {
-    public function __construct(string $proximityUUID, int $minor = null, int $major = null, string $relevantText = null)
-    {
+    public function __construct(
+        string $proximityUUID,
+        ?int $minor = null,
+        ?int $major = null,
+        ?string $relevantText = null
+    ) {
         $data = compact('proximityUUID', 'minor', 'major', 'relevantText');
         $attributes = collect($data)->filter()->toArray();
         parent::__construct($attributes);
@@ -16,7 +20,7 @@ class Beacon extends Fluent
     /**
      * Major identifier of a Bluetooth Low Energy location beacon.
      *
-     * @param int $major 16-bit unsigned integer
+     * @param  int  $major  16-bit unsigned integer
      * @return self
      */
     public function setMajor(int $major)
@@ -29,7 +33,7 @@ class Beacon extends Fluent
     /**
      * Minor identifier of a Bluetooth Low Energy location beacon
      *
-     * @param int $minor 16-bit unsigned integer
+     * @param  int  $minor  16-bit unsigned integer
      * @return self
      */
     public function setMinor(int $minor)
@@ -42,7 +46,6 @@ class Beacon extends Fluent
     /**
      * Unique identifier of a Bluetooth Low Energy location beacon.
      *
-     * @param string $proximityUUID
      * @return self
      */
     public function setProximityUUID(string $proximityUUID)
@@ -57,7 +60,6 @@ class Beacon extends Fluent
      * For example, a description of the nearby location such as
      * “Store nearby on 1st and Main.”
      *
-     * @param string $relevantText
      * @return self
      */
     public function setRelevantText(string $relevantText)
