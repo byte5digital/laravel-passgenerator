@@ -9,14 +9,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.4'
-          extensions: zip, json, openssl
-
       - name: Install Composer dependencies
         uses: php-actions/composer@v6
+        with:
+          php_extensions: zip, json, openssl
 
       - name: Run PHPStan
         uses: php-actions/phpstan@v3
