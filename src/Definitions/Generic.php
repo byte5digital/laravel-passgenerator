@@ -6,7 +6,7 @@
  * Time: 10:31
  */
 
-namespace Byte5Digital\Definitions;
+namespace Byte5\Definitions;
 
 class Generic extends AbstractDefinition
 {

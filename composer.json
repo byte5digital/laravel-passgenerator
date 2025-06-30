@@ -37,16 +37,16 @@
     },
     "autoload": {
         "psr-4": {
-            "Byte5Digital\\": "src"
+            "Byte5\\": "src"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Byte5Digital\\PassGeneratorServiceProvider"
+                "Byte5\\PassGeneratorServiceProvider"
             ],
             "aliases": {
-                "PassGenerator": "Byte5Digital\\Facades\\PassGenerator"
+                "PassGenerator": "Byte5\\Facades\\PassGenerator"
             }
         }
     },

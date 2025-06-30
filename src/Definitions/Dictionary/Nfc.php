@@ -6,7 +6,7 @@
  * Time: 23:29
  */
 
-namespace Byte5Digital\Definitions\Dictionary;
+namespace Byte5\Definitions\Dictionary;
 
 use Illuminate\Support\Fluent;
 

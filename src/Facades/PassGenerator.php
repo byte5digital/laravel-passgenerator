@@ -1,6 +1,6 @@
 <?php
 
-namespace Byte5Digital\Facades;
+namespace Byte5\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

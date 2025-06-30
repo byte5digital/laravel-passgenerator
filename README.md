@@ -22,12 +22,12 @@ The best and easiest way to install the package is using the [Composer](https://
 composer require byte5digital/passgenerator
 ```
 
-Then, add the `Byte5Digital\PassGeneratorServiceProvider` provider to the providers array in `config/app.php`:
+Then, add the `Byte5\PassGeneratorServiceProvider` provider to the providers array in `config/app.php`:
 
 ```php
 'providers' => [
 // ...
-    Byte5Digital\PassGeneratorServiceProvider::class,
+    Byte5\PassGeneratorServiceProvider::class,
 ],
 ```
 
@@ -66,7 +66,7 @@ In case there is a reason the config file must be modified (conflicting env keys
 
 ```sh
 // file will be at config/passgenerator.php
-php artisan vendor:publish --provider="Byte5Digital\PassGeneratorServiceProvider"
+php artisan vendor:publish --provider="Byte5\PassGeneratorServiceProvider"
 ```
 
 ## 🚀 Usage
@@ -74,7 +74,7 @@ To create a pass for the first time, you have to first create the pass definitio
 
 ```php
 
-use Byte5Digital\PassGenerator;
+use Byte5\PassGenerator;
 
 //...
 
@@ -223,7 +223,7 @@ It is also possible to retrieve the actual path to a pass on your filesystem. By
 It is also possible to programatically create/modify a pass using the definitions objects. Eg.-
 
 ```
-$coupon = Byte5Digital\Definitions\Coupon();
+$coupon = Byte5\Definitions\Coupon();
 $coupon->setDescription('Coupon description');
 $coupon->setSerialNumber('123456');
 

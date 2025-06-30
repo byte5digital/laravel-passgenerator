@@ -6,7 +6,7 @@
  * Time: 22:06
  */
 
-namespace Byte5Digital\Definitions;
+namespace Byte5\Definitions;
 
 class Coupon extends AbstractDefinition
 {

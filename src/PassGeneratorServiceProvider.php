@@ -1,6 +1,6 @@
 <?php
 
-namespace Byte5Digital;
+namespace Byte5;
 
 use Illuminate\Support\ServiceProvider;
 

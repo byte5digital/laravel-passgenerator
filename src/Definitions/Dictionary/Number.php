@@ -6,7 +6,7 @@
  * Time: 11:46
  */
 
-namespace Byte5Digital\Definitions\Dictionary;
+namespace Byte5\Definitions\Dictionary;
 
 use InvalidArgumentException;
 

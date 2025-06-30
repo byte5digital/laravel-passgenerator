@@ -6,7 +6,7 @@
  * Time: 21:30
  */
 
-namespace Byte5Digital\Definitions;
+namespace Byte5\Definitions;
 
 interface DefinitionInterface
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace Byte5Digital;
+namespace Byte5;
 
 use Illuminate\Support\Facades\Storage;
 use InvalidArgumentException;
 use RuntimeException;
 use Safe\Exceptions\OpensslException;
-use Byte5Digital\Definitions\DefinitionInterface;
+use Byte5\Definitions\DefinitionInterface;
 use ZipArchive;
 
 class PassGenerator
@@ -211,7 +211,7 @@ class PassGenerator
     /**
      * Set the pass definition with an array.
      *
-     * @param \Byte5Digital\Definitions\DefinitionInterface|array $definition
+     * @param \Byte5\Definitions\DefinitionInterface|array $definition
      *
      * @return void
      * @throws InvalidArgumentException

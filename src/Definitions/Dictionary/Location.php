@@ -1,6 +1,6 @@
 <?php
 
-namespace Byte5Digital\Definitions\Dictionary;
+namespace Byte5\Definitions\Dictionary;
 
 use Illuminate\Support\Fluent;
 
