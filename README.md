@@ -23,7 +23,7 @@ Only things needed are Laravel 7+ and to have the following extensions installed
 The best and easiest way to install the package is using the [Composer](https://getcomposer.org/) package manager. To do so, run this command in your project root:
 
 ```sh
-composer require byte5digital/passgenerator
+composer require byte5/passgenerator
 ```
 
 Then, add the `Byte5\PassGeneratorServiceProvider` provider to the providers array in `config/app.php`:
