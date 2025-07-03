@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE buildprofiles SYSTEM "https://resources.jetbrains.com/writerside/1.0/build-profiles.dtd">
+<buildprofiles xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/build-profiles.xsd"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <variables>
+        <link-color>#009FE3</link-color>
+        <color-preset>contrast</color-preset>
+
+        <header-logo>https://raw.githubusercontent.com/byte5digital/.github/main/profile/assets/byte5.svg</header-logo>
+
+        <download-title>Github</download-title>
+        <download-page>https://github.com/byte5digital/passgenerator</download-page>
+        <showDownloadButton>true</showDownloadButton>
+    </variables>
+    <build-profile instance="passgenerator-docs">
+        <variables>
+            <noindex-content>true</noindex-content>
+        </variables>
+    </build-profile>
+
+</buildprofiles>
