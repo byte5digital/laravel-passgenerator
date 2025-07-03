@@ -1,4 +1,7 @@
 # Getting started
+
+<img src="https://byte5-relaunch-staging.azurewebsites.net/media/yonjlhuc/byte5-package-banner-passgenerator.png" alt="Laravel Passgenerator Banner" height="160"/>
+
 Passgenerator is a Laravel package that allows you to easily create passes compatible with Apple Wallet (former Passbook).
 
 ## 👮 Requirements
