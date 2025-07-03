@@ -1,9 +1,11 @@
 # Getting started
-Passgenerator is a Laravel7+ package that allows you to easily create passes compatible with Apple Wallet (former Passbook).
+Passgenerator is a Laravel package that allows you to easily create passes compatible with Apple Wallet (former Passbook).
 
 ## 👮 Requirements
 
-Only things needed are Laravel 7+ and to have the following extensions installed and enabled:
+* Laravel 7 or higher
+
+### PHP extensions
 * ext-json
 * ext-zip
 * ext-openssl
@@ -64,7 +66,7 @@ php artisan vendor:publish --provider="Byte5\PassGeneratorServiceProvider"
 ```
 
 #### Below is a reasonable default for your .env file:
-```dotenv
+```
 CERTIFICATE_PATH="passgenerator/certs/certificate.p12"
 CERTIFICATE_PASS="YOUR-CERTIFICATE-PASSWORD"
 WWDR_CERTIFICATE="passgenerator/certs/AppleWWDRCA.pem"
@@ -238,7 +240,7 @@ It is also possible to retrieve the actual path to a pass on your filesystem. By
 ### Definitions
 It is also possible to programatically create/modify a pass using the definitions objects. Eg.-
 
-```
+```php
 $coupon = Byte5\Definitions\Coupon();
 $coupon->setDescription('Coupon description');
 $coupon->setSerialNumber('123456');

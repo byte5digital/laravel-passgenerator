@@ -8,6 +8,7 @@
         <color-preset>contrast</color-preset>
 
         <header-logo>https://raw.githubusercontent.com/byte5digital/.github/main/profile/assets/byte5.svg</header-logo>
+        <custom-favicons>https://www.byte5.de/favicon-32x32.png</custom-favicons>
 
         <download-title>Github</download-title>
         <download-page>https://github.com/byte5digital/passgenerator</download-page>
