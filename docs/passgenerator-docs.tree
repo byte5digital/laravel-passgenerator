@@ -8,6 +8,5 @@
     <toc-element topic="README.md"/>
     <toc-element topic="Troubleshooting.md"/>
     <toc-element topic="About-byte5.md">
-        <toc-element topic="Who-we-are.md"/>
     </toc-element>
 </instance-profile>
