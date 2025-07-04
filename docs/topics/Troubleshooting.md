@@ -13,3 +13,6 @@ openssl pkcs12 -in PassType.p12 -nodes -out key_decrypted.tmp
 #pack the key using a more moden algorithm:
 openssl pkcs12 -export -in key_decrypted.tmp -out new.p12 -certpbe AES-256-CBC -keypbe AES-256-CBC
 ```
+
+### Pkpass Validator
+Is your pass not working? You can use this [PKPass Validator](https://pkpassvalidator.azurewebsites.net/) to check if your pass is valid. It will give you detailed information about any issues with your pass.
