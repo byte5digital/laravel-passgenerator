@@ -37,15 +37,6 @@ The best and easiest way to install the package is using the [Composer](https://
 composer require byte5/laravel-passgenerator
 ```
 
-Then, add the `Byte5\PassGeneratorServiceProvider` provider to the providers array in `config/app.php`:
-
-```php
-'providers' => [
-// ...
-    Byte5\PassGeneratorServiceProvider::class,
-],
-```
-
 That's it!
 
 ## 🍎 Apple docs
