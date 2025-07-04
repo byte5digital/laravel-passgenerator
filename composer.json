@@ -1,5 +1,5 @@
 {
-    "name": "byte5/passgenerator",
+    "name": "byte5/laravel-passgenerator",
     "description": "A Laravel package to create Apple Wallet (old Passbook) compatible tickets.",
     "type": "library",
     "license": "GPL-3.0-or-later",
