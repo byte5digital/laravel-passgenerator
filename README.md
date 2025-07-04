@@ -34,7 +34,7 @@ You can find the full documentation [here](https://byte5digital.github.io/larave
 The best and easiest way to install the package is using the [Composer](https://getcomposer.org/) package manager. To do so, run this command in your project root:
 
 ```sh
-composer require byte5/passgenerator
+composer require byte5/laravel-passgenerator
 ```
 
 Then, add the `Byte5\PassGeneratorServiceProvider` provider to the providers array in `config/app.php`:
