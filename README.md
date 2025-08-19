@@ -67,6 +67,7 @@ Once all this tedious process has been done, everything is almost ready to start
 * WWDR_CERTIFICATE ➪ The path to the _Apple Worldwide Developer Relations Intermediate Certificate_ on `.pem` format.
 * PASSGENERATOR_STORAGE_DISK ➪ The name of the disk where the passes will be stored. This should match a disk defined in your `config/filesystems.php` file. By default, it is set to `local`.
 * PASSGENERATOR_STORAGE_PATH ➪ The path where the passes will be stored. By default, it is set to `passgenerator/certs`.
+* PASSGENERATOR_CONFIG_DISK ➪ The disk where config files and certificates are stored. If not set, fallbacks to `PASSGENERATOR_STORAGE_DISK`.
 
 In case there is a reason the config file must be modified (conflicting env keys, dynamic certificates required...), it can be published with the following command:
 
