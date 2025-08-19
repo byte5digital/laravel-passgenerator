@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'config_disk' => env('PASSGENERATOR_CONFIG_DISK', 'local'), // The disk to use for storing the pass configuration files and certificates
+    'config_disk' => env('PASSGENERATOR_CONFIG_DISK'), // The disk to use for storing the pass configuration files and certificates
 
     'certificate_store_path' => env('CERTIFICATE_PATH', ''), // The path to the certificate store (a valid  PKCS#12 file)
     'certificate_store_password' => env('CERTIFICATE_PASS', ''), // The password to unlock the certificate store
