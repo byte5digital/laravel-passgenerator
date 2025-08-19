@@ -82,10 +82,11 @@ class PassGenerator
     public function __construct($passId = false, bool $replaceExistent = false)
     {
         // Set certificate
+        $configDisk = config('passgenerator.config_disk') ?? config('passgenerator.storage_disk');
         $certPath = config('passgenerator.certificate_store_path');
 
-        if (Storage::disk(config('passgenerator.storage_disk'))->exists($certPath)) {
-            $this->certStore = Storage::disk(config('passgenerator.storage_disk'))->get($certPath);
+        if (Storage::disk($configDisk)->exists($certPath)) {
+            $this->certStore = Storage::disk($configDisk)->get($certPath);
         } else {
             throw new InvalidArgumentException(
                 'No certificate found on '.$certPath
@@ -99,12 +100,12 @@ class PassGenerator
         $wwdrCertPath = config('passgenerator.wwdr_certificate_path');
 
         $validCert = false;
-        if (Storage::disk(config('passgenerator.storage_disk'))->exists($wwdrCertPath)) {
+        if (Storage::disk($configDisk)->exists($wwdrCertPath)) {
             $validCert = true;
         }
 
         try {
-            openssl_x509_read(Storage::disk(config('passgenerator.storage_disk'))->get($wwdrCertPath));
+            openssl_x509_read(Storage::disk($configDisk)->get($wwdrCertPath));
         } catch (OpensslException $e) {
             $validCert = false;
         }
@@ -346,6 +347,8 @@ class PassGenerator
         // unpack the key: openssl pkcs12 -in PassType.p12 -nodes -out key_decrypted.tmp
         // pack it using a modern algo: openssl pkcs12 -export -in key_decrypted.tmp -out new.p12 -certpbe AES-256-CBC -keypbe AES-256-CBC
 
+        $configDisk = config('passgenerator.config_disk') ?? config('passgenerator.storage_disk');
+
         $manifestPath = $this->passRealPath.'/'.$this->manifestFilename;
 
         $signaturePath = $this->passRealPath.'/'.$this->signatureFilename;
@@ -369,7 +372,7 @@ class PassGenerator
             $privateKey, // @phpstan-ignore argument.type
             [],
             PKCS7_BINARY | PKCS7_DETACHED,
-            Storage::disk(config('passgenerator.storage_disk'))->path($this->wwdrCertPath)
+            Storage::disk($configDisk)->path($this->wwdrCertPath)
         );
 
         // PKCS7 returns a signature on PEM format (.p7s), we only need the DER signature so Apple does not cry.

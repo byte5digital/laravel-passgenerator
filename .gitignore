@@ -4,3 +4,4 @@
 *.diff
 *kdev4
 .idea
+*.DS_STORE
