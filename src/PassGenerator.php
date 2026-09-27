@@ -37,6 +37,21 @@ class PassGenerator
     private string $wwdrCertPath;
 
     /**
+     * Explicit certificate store contents set via useCertificate(), overriding the config.
+     */
+    private ?string $certificateOverride = null;
+
+    /**
+     * Password for the explicit certificate store set via useCertificate().
+     */
+    private ?string $certificatePasswordOverride = null;
+
+    /**
+     * Explicit WWDR certificate contents set via useWwdrCertificate(), overriding the config.
+     */
+    private ?string $wwdrCertificateOverride = null;
+
+    /**
      * The JSON definition for the pass (pass.json).
      */
     private string $passJson;
@@ -81,46 +96,6 @@ class PassGenerator
      */
     public function __construct($passId = false, bool $replaceExistent = false)
     {
-        // Set certificate
-        $configDisk = config('passgenerator.config_disk') ?? config('passgenerator.storage_disk');
-        $certPath = config('passgenerator.certificate_store_path');
-
-        if (Storage::disk($configDisk)->exists($certPath)) {
-            $this->certStore = Storage::disk($configDisk)->get($certPath);
-        } else {
-            throw new InvalidArgumentException(
-                'No certificate found on '.$certPath
-            );
-        }
-
-        // Set password
-        $this->certStorePassword = config('passgenerator.certificate_store_password');
-
-        // Set WWDR certificate
-        $wwdrCertPath = config('passgenerator.wwdr_certificate_path');
-
-        $validCert = false;
-        if (Storage::disk($configDisk)->exists($wwdrCertPath)) {
-            $validCert = true;
-        }
-
-        try {
-            openssl_x509_read(Storage::disk($configDisk)->get($wwdrCertPath));
-        } catch (OpensslException $e) {
-            $validCert = false;
-        }
-
-        if ($validCert) {
-            $this->wwdrCertPath = $wwdrCertPath;
-        } else {
-            $errorMsg = 'No valid intermediate certificate was found on '.$wwdrCertPath.PHP_EOL;
-            $errorMsg .= 'The WWDR intermediate certificate must be on PEM format, ';
-            $errorMsg .= 'the DER version can be found at https://www.apple.com/certificateauthority/ ';
-            $errorMsg .= "But you'll need to export it into PEM.";
-
-            throw new InvalidArgumentException($errorMsg);
-        }
-
         if (! $passId) {
             $passId = uniqid('pass_', true);
         }
@@ -149,6 +124,34 @@ class PassGenerator
     {
         Storage::disk(config('passgenerator.storage_disk'))
             ->deleteDirectory(config('passgenerator.storage_path').'/'.$this->passRelativePath);
+    }
+
+    /**
+     * Use an explicit certificate store instead of the one configured in `passgenerator.certificate_store_path`.
+     * Useful for SaaS setups that need a different certificate per pass/tenant.
+     *
+     * @param  string  $certificateContents  The contents of a valid PKCS#12 certificate store.
+     * @param  string  $password  The password to unlock the certificate store.
+     */
+    public function useCertificate(string $certificateContents, string $password): self
+    {
+        $this->certificateOverride = $certificateContents;
+        $this->certificatePasswordOverride = $password;
+
+        return $this;
+    }
+
+    /**
+     * Use an explicit WWDR certificate instead of the one configured in `passgenerator.wwdr_certificate_path`.
+     * Useful for SaaS setups that need a different certificate per pass/tenant.
+     *
+     * @param  string  $wwdrCertificateContents  The contents of the WWDR intermediate certificate, in PEM format.
+     */
+    public function useWwdrCertificate(string $wwdrCertificateContents): self
+    {
+        $this->wwdrCertificateOverride = $wwdrCertificateContents;
+
+        return $this;
     }
 
     /**
@@ -219,6 +222,8 @@ class PassGenerator
     public function create()
     {
         $this->createTempFolder();
+
+        $this->resolveCertificates();
 
         // Create and store the json manifest
         $manifest = $this->createJsonManifest();
@@ -330,6 +335,80 @@ class PassGenerator
     }
 
     /**
+     * Resolve the certificate store, its password, and the WWDR certificate, either from the
+     * explicit values set via useCertificate()/useWwdrCertificate(), or from the config.
+     *
+     * @throws InvalidArgumentException
+     */
+    private function resolveCertificates(): void
+    {
+        $configDisk = config('passgenerator.config_disk') ?? config('passgenerator.storage_disk');
+
+        if ($this->certificateOverride !== null) {
+            $this->certStore = $this->certificateOverride;
+            $this->certStorePassword = $this->certificatePasswordOverride ?? '';
+        } else {
+            $certPath = config('passgenerator.certificate_store_path');
+
+            if (Storage::disk($configDisk)->exists($certPath)) {
+                $this->certStore = Storage::disk($configDisk)->get($certPath);
+            } else {
+                throw new InvalidArgumentException(
+                    'No certificate found on '.$certPath
+                );
+            }
+
+            $this->certStorePassword = config('passgenerator.certificate_store_password');
+        }
+
+        if ($this->wwdrCertificateOverride !== null) {
+            try {
+                openssl_x509_read($this->wwdrCertificateOverride);
+            } catch (OpensslException $e) {
+                throw new InvalidArgumentException($this->invalidWwdrCertificateMessage('the provided WWDR certificate'));
+            }
+
+            $wwdrRelativePath = $this->passRelativePath.'/wwdr.pem';
+
+            Storage::disk(config('passgenerator.storage_disk'))->put($wwdrRelativePath, $this->wwdrCertificateOverride);
+
+            $this->wwdrCertPath = Storage::disk(config('passgenerator.storage_disk'))->path($wwdrRelativePath);
+        } else {
+            $wwdrCertPath = config('passgenerator.wwdr_certificate_path');
+
+            $validCert = false;
+            if (Storage::disk($configDisk)->exists($wwdrCertPath)) {
+                $validCert = true;
+            }
+
+            try {
+                openssl_x509_read(Storage::disk($configDisk)->get($wwdrCertPath));
+            } catch (OpensslException $e) {
+                $validCert = false;
+            }
+
+            if ($validCert) {
+                $this->wwdrCertPath = Storage::disk($configDisk)->path($wwdrCertPath);
+            } else {
+                throw new InvalidArgumentException($this->invalidWwdrCertificateMessage($wwdrCertPath));
+            }
+        }
+    }
+
+    /**
+     * Build the error message for an invalid or missing WWDR certificate.
+     */
+    private function invalidWwdrCertificateMessage(string $source): string
+    {
+        $errorMsg = 'No valid intermediate certificate was found on '.$source.PHP_EOL;
+        $errorMsg .= 'The WWDR intermediate certificate must be on PEM format, ';
+        $errorMsg .= 'the DER version can be found at https://www.apple.com/certificateauthority/ ';
+        $errorMsg .= "But you'll need to export it into PEM.";
+
+        return $errorMsg;
+    }
+
+    /**
      * Sign the manifest with the provided certificates and store the signature.
      *
      * @see -) http://php.net/manual/en/function.openssl-pkcs7-sign.php#111336 for PKCS7 flags.
@@ -346,8 +425,6 @@ class PassGenerator
         // if you get the error "php error:0308010C:digital envelope routines::unsupported"
         // unpack the key: openssl pkcs12 -in PassType.p12 -nodes -out key_decrypted.tmp
         // pack it using a modern algo: openssl pkcs12 -export -in key_decrypted.tmp -out new.p12 -certpbe AES-256-CBC -keypbe AES-256-CBC
-
-        $configDisk = config('passgenerator.config_disk') ?? config('passgenerator.storage_disk');
 
         $manifestPath = $this->passRealPath.'/'.$this->manifestFilename;
 
@@ -372,7 +449,7 @@ class PassGenerator
             $privateKey, // @phpstan-ignore argument.type
             [],
             PKCS7_BINARY | PKCS7_DETACHED,
-            Storage::disk($configDisk)->path($this->wwdrCertPath)
+            $this->wwdrCertPath
         );
 
         // PKCS7 returns a signature on PEM format (.p7s), we only need the DER signature so Apple does not cry.
