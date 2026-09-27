@@ -5,3 +5,5 @@
 *kdev4
 .idea
 *.DS_STORE
+.phpunit.result.cache
+.php-cs-fixer.cache

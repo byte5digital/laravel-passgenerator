@@ -98,6 +98,28 @@ storage/
 │  │  │  │  ├─ your_generated_pass.pkpass
 ```
 
+### Per-pass certificates
+
+If your application needs to sign passes with different certificates depending on the pass being
+generated (for example a SaaS product hosting certificates for multiple tenants), you can bypass the
+configured certificate paths for a specific `PassGenerator` instance with `useCertificate()` and
+`useWwdrCertificate()`. Both accept the raw contents of the certificate, not a file path, so they can be
+loaded from wherever they are stored (database, per-tenant disk, secrets manager...).
+
+```php
+$pass = new PassGenerator($pass_identifier);
+
+$pass->useCertificate($certificateContents, $certificatePassword);
+$pass->useWwdrCertificate($wwdrCertificateContents);
+
+$pass->setPassDefinition($pass_definition);
+
+$pass->create();
+```
+
+If `useCertificate()`/`useWwdrCertificate()` are not called, the package falls back to the certificates
+configured via `CERTIFICATE_PATH`/`CERTIFICATE_PASS`/`WWDR_CERTIFICATE` as before.
+
 ## 🚀 Usage
 To create a pass for the first time, you have to first create the pass definition, either as a JSON file or as an array. It is *really* recommended to have already read the [Apple docs](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/PassKit_PG/YourFirst.html#//apple_ref/doc/uid/TP40012195-CH2-SW1) as well as the [PassKit Package Format Reference](https://developer.apple.com/library/ios/documentation/UserExperience/Reference/PassKit_Bundle/Chapters/Introduction.html#//apple_ref/doc/uid/TP40012026).
 

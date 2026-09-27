@@ -41,6 +41,11 @@
             "Byte5\\": "src"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Byte5\\Tests\\": "tests"
+        }
+    },
     "extra": {
         "laravel": {
             "providers": [
